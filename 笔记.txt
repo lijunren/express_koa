@@ -1,0 +1,67 @@
+use ：中间件
+1、插件-补充框架功能
+2、流水线
+
+res.send():可以返回各种数据类型
+res.sendFile()：可以返回文件，但是路径必须为绝对路径
+res.sendStatus(404) 发送状态码
+res.redirect(location) 重定向
+
+
+GET请求直接使用req.query 获得参数
+POST：
+普通POST：使用body-parser中间件解析 req.body里面获取参数，bodyParser.urlencoded({extended: false})
+文件POST：使用multer中间件解析 multer({dest: "存放的路径"}).any()，req.files读取文件
+
+cookie--存在浏览器，容量有限 4k，不安全(防篡改、加密)
+session--存在服务器，容量不限，安全
+
+数据库
+
+路由
+
+渲染引擎
+pug：破坏式-破坏html
+ejs：非破坏式-保留html
+
+
+koa
+get请求参数：cxt.request.query
+    路由里面的参数cxt.params /:id/:name
+
+post请求参数:
+server.use(convert(betterBody({参数}))
+cxt.request.fields 数据+文件信息
+
+文件：
+cxt.request.files 文件信息（全）
+
+cookie是自带的
+cxt.cookies.get();获取cookie
+cxt.cookies.set("b", 5, {
+    maxAge: 1000   // 过期时间毫秒
+    expires: data对象
+});
+
+session:
+需要require("koa-session");
+server.use(session({}, server))
+server.keys=[
+    "ksdfkjsadkjfsa7ldfsadlfj",
+    "daskfsadofasdfm5sdfsadff",
+    "q9089jksdlfskdf93msdm3fsd"
+];需要添加秘钥
+
+
+koa-mysql 未更新，使用的是老版的generator
+mysql-pro作为代替
+优点1：事务支持
+优点2：特殊的传入方式可以防止注入
+transaction - 事务
+要么都发生，要么都不发生
+
+数据库遵循ACID
+A:原子性 要么都发生，要么都不发生
+C:持久性 只要事务提交了，他的作用就是永久
+I:隔离性 各个事务之间是独立的
+D:一致性 事务前后的状态是一致的
